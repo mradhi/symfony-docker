@@ -12,20 +12,20 @@ Comes with:
 
 Create a new symfony project using
 
-```shell script
+```console
 $ symfony new my_project
 ```
 
 Navigate to the project directory and add the Symfony-Docker module
 
-```shell script
+```console
 $ cd path/to/my_project
 $ git subtree add --prefix docker https://github.com/mradhi/symfony-docker.git master
 ```
 
 Create the environment file based on `docker/.env.dist` file
 
-```shell script
+```console
 $ cp docker/.env.dist docker/.env
 ```
 
@@ -70,7 +70,7 @@ DATABASE_URL=mysql://user:password@database:3306/test?serverVersion=5.7
 Finally navigate to the `docker/` directory and build and start your containers 
 using the following command
 
-```shell script
+```console
 $ cd docker/
 $ docker-compose up -d --build
 ```
