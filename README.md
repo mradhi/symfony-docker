@@ -31,7 +31,7 @@ $ cp docker/.env.dist docker/.env
 
 Replace parameters the way they fits your needs
 
-```dotenv
+```shell
 TIME_ZONE=Africa/Tunis
 
 PROJECT_PATH=../.
@@ -52,7 +52,7 @@ DB_ALLOW_EMPTY_PASSWORD=no
 Update your Symfony project `.env.local` file to match Docker containers configuration, and don't forget 
 to use the container name as a **host** to connect to the container services such as:
 
-```dotenv
+```shell
 ###> doctrine/doctrine-bundle ###
 DATABASE_URL=mysql://DB_USER:DB_PASS@[CONTAINER_NAME]:3306/DB_NAME?serverVersion=5.7
 ###< doctrine/doctrine-bundle ###
@@ -61,7 +61,7 @@ DATABASE_URL=mysql://DB_USER:DB_PASS@[CONTAINER_NAME]:3306/DB_NAME?serverVersion
 It means that if we need to configure our database URL using the environment 
 variables used on `docker/.env` file, see below
 
-```dotenv
+```shell
 ###> doctrine/doctrine-bundle ###
 DATABASE_URL=mysql://user:password@database:3306/test?serverVersion=5.7
 ###< doctrine/doctrine-bundle ###
