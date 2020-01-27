@@ -3,7 +3,7 @@
 This is a quick plug-and-play setup for your Symfony projects.
 
 Comes with:
-* Symfony application: `php:fpm-alpine`
+* Symfony application with Supervisor: `php:fpm-alpine`
 * Web server: `nginx`
 * Database: `bitnami/mariadb:latest`
 * Database for testing: `bitnami/mariadb:latest`
