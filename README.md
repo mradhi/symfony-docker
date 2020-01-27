@@ -75,7 +75,7 @@ $ cd docker/
 $ docker-compose up -d --build
 ```
 
-Navigate to http://symfony.local, and you'll get your amazing new Symfony app running behind Docker.
+Navigate to  http://localhost or http://symfony.local, and you'll get your amazing new Symfony app running behind Docker.
 
 Don't forget to add this line to your `/etc/hosts` file
 
