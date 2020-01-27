@@ -1,0 +1,76 @@
+version: '3'
+
+services:
+  # Application php-fpm container
+  application:
+    build:
+      context: ./etc/php
+      args:
+        - TZ=${TIME_ZONE}
+    working_dir: /var/www
+    depends_on:
+      - database
+      - database-test
+    restart: always
+    volumes:
+      - ${PROJECT_PATH}:/var/www
+      - ./storage/php/logs:/var/log
+      - ./etc/php/php.ini:/usr/local/etc/php/php.ini
+      - ./etc/php/supervisord.conf:/etc/supervisord.conf
+    environment:
+      - TZ=${TIME_ZONE}
+    ports:
+      - '${APP_PORT:-18000}:8000'
+
+  # Web Nginx container
+  web:
+    image: nginx
+    depends_on:
+      - application
+    volumes:
+      - ${PROJECT_PATH}:/var/www
+      - ./storage/nginx/logs:/var/log/nginx
+      - ./etc/nginx/default.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - APP_PORT=${APP_PORT}
+      - TZ=${TIME_ZONE}
+    ports:
+      - '${WEB_PORT}:80'
+
+  # Mariadb database image
+  database:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASS}
+      - MARIADB_ROOT_PASSWORD=${DB_PASS}
+      - ALLOW_EMPTY_PASSWORD=${DB_ALLOW_EMPTY_PASSWORD:-no}
+      - TZ=${TIME_ZONE}
+    volumes:
+      - db-store:/bitnami/mariadb
+      - ./etc/database/my_custom.cnf:/opt/bitnami/mariadb/conf/my_custom.cnf:ro
+    restart: always
+    ports:
+      - '${DB_PORT}:3306'
+
+  # Mariadb database image
+  database-test:
+    image: 'bitnami/mariadb:latest'
+    environment:
+      - MARIADB_DATABASE=${DB_NAME}
+      - MARIADB_USER=${DB_USER}
+      - MARIADB_PASSWORD=${DB_PASS}
+      - MARIADB_ROOT_PASSWORD=${DB_PASS}
+      - ALLOW_EMPTY_PASSWORD=${DB_ALLOW_EMPTY_PASSWORD:-no}
+      - TZ=${TIME_ZONE}
+    tmpfs:
+      - /bitnami/mariadb
+    volumes:
+      - ./etc/database/my_custom.cnf:/opt/bitnami/mariadb/conf/my_custom.cnf:ro
+    restart: always
+    ports:
+      - '${DB_TEST_PORT}:3306'
+
+volumes:
+  db-store:
