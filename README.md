@@ -67,7 +67,7 @@ DATABASE_URL=mysql://user:password@database:3306/test?serverVersion=5.7
 ###< doctrine/doctrine-bundle ###
 ```
 
-Finally navigate to the `docker/` directory and build and start your containers 
+Finally navigate to the `docker/` directory to build and start your containers 
 using the following command
 
 ```shell script
