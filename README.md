@@ -12,26 +12,26 @@ Comes with:
 
 Create a new symfony project using
 
-```console
+```shell script
 $ symfony new my_project
 ```
 
 Navigate to the project directory and add the Symfony-Docker module
 
-```console
+```shell script
 $ cd path/to/my_project
 $ git subtree add --prefix docker https://github.com/mradhi/symfony-docker.git master
 ```
 
 Create the environment file based on `docker/.env.dist` file
 
-```console
+```shell script
 $ cp docker/.env.dist docker/.env
 ```
 
 Replace parameters the way they fits your needs
 
-```shell
+```shell script
 TIME_ZONE=Africa/Tunis
 
 PROJECT_PATH=../.
@@ -52,7 +52,7 @@ DB_ALLOW_EMPTY_PASSWORD=no
 Update your Symfony project `.env.local` file to match Docker containers configuration, and don't forget 
 to use the container name as a **host** to connect to the container services such as:
 
-```shell
+```shell script
 ###> doctrine/doctrine-bundle ###
 DATABASE_URL=mysql://DB_USER:DB_PASS@[CONTAINER_NAME]:3306/DB_NAME?serverVersion=5.7
 ###< doctrine/doctrine-bundle ###
@@ -61,7 +61,7 @@ DATABASE_URL=mysql://DB_USER:DB_PASS@[CONTAINER_NAME]:3306/DB_NAME?serverVersion
 It means that if we need to configure our database URL using the environment 
 variables used on `docker/.env` file, see below
 
-```shell
+```shell script
 ###> doctrine/doctrine-bundle ###
 DATABASE_URL=mysql://user:password@database:3306/test?serverVersion=5.7
 ###< doctrine/doctrine-bundle ###
@@ -70,7 +70,7 @@ DATABASE_URL=mysql://user:password@database:3306/test?serverVersion=5.7
 Finally navigate to the `docker/` directory and build and start your containers 
 using the following command
 
-```console
+```shell script
 $ cd docker/
 $ docker-compose up -d --build
 ```
